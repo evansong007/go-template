@@ -2,13 +2,14 @@ package database
 
 import (
 	"fmt"
+	"log"
 	"os"
 	"time"
 
+	"github.com/joho/godotenv"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"gorm.io/gorm/schema"
-
 )
 
 type DatabaseClient interface {
@@ -20,6 +21,10 @@ type Client struct {
 }
 
 func NewDatabaseClient() (DatabaseClient, error) {
+	err := godotenv.Load(".env")
+	if err != nil {
+		log.Fatalf("Can not found .env: %v", err)
+	}
 	dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=%s",
 		os.Getenv("DB_HOST"),
 		os.Getenv("DB_USER"),
@@ -46,7 +51,6 @@ func NewDatabaseClient() (DatabaseClient, error) {
 
 	return client, nil
 }
-
 
 func (c Client) Ready() bool {
 	var ready string
