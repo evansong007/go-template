@@ -7,16 +7,20 @@ import (
 	"os"
 	"time"
 
-	"github.com/evansong007/go-microservices/models"
 	"github.com/joho/godotenv"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"gorm.io/gorm/schema"
+
+	"github.com/evansong007/go-microservices/models"
 )
 
 type DatabaseClient interface {
 	Ready() bool
 	GetAllCustomers(ctx context.Context, emailAddress string) ([]models.Customer, error)
+	GetAllProducts(ctx context.Context, vendorID string) ([]models.Product, error)
+	GetAllServices(ctx context.Context) ([]models.Service, error)
+	GetAllVendors(ctx context.Context) ([]models.Vendor, error)
 }
 
 type Client struct {

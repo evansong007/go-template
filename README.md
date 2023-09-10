@@ -1,2 +1,3 @@
 # go-template
-empty template for go project
+template for go-microservice project
+```
