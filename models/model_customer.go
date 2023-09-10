@@ -8,4 +8,3 @@ type Customer struct {
 	Phone      string `json:"phoneNumber"`
 	Address    string `json:"address"`
 }
-
